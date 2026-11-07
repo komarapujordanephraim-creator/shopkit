@@ -2,6 +2,8 @@
 
 A compact online store: product catalogue, session cart, checkout, order tracking link and a staff order screen. Built with Django 5 and SQLite. It is a portfolio project that shows how I handle the parts of e-commerce that go wrong most often (prices, stock and order states), not a production shop.
 
+![Catalogue](screenshots/catalog.png)
+
 ## What it does
 
 - **Catalogue** with search, product pages and out-of-stock handling.
@@ -11,6 +13,10 @@ A compact online store: product catalogue, session cart, checkout, order trackin
 - **Order page** reachable only through a secret link (no guessable order numbers).
 - **Staff orders screen** with a fixed status flow: Pending, Paid, Shipped, or Cancelled. Cancelling puts the items back in stock, and a cancelled order cannot be cancelled twice.
 - **Django admin** for products and orders.
+
+| Cart | Order confirmation | Staff orders |
+|---|---|---|
+| ![Cart](screenshots/cart.png) | ![Order](screenshots/order.png) | ![Staff orders](screenshots/staff-orders.png) |
 
 ## Run it
 
