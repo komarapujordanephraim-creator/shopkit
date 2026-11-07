@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}ShopKit{% endblock %}</title>
+<style>
+:root{--bg:#fafaf7;--card:#fff;--tx:#1d1d1f;--mu:#6b6b70;--line:#e7e5e0;--pri:#0f766e;--bad:#b42318;--ok:#067647}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--pri);text-decoration:none}a:hover{text-decoration:underline}
+header{background:#fff;border-bottom:1px solid var(--line)}header .in{max-width:1000px;margin:0 auto;padding:14px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+header b{font-size:18px;color:var(--tx)}header .sp{flex:1}
+main{max-width:1000px;margin:0 auto;padding:24px 20px 60px}
+h1{font-size:24px;margin:0 0 16px}h2{font-size:17px;margin:0 0 10px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:16px;overflow-x:auto}
+.thumb{height:110px;border-radius:8px;background:linear-gradient(135deg,#ccfbf1,#e0f2fe);display:flex;align-items:center;justify-content:center;font-size:34px;color:#0f766e;margin-bottom:10px}
+.price{font-weight:700;font-size:17px}.help{color:var(--mu);font-size:13px}
+button,.btn{display:inline-block;background:var(--pri);color:#fff;border:0;border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}
+button.g,.btn.g{background:#fff;color:var(--tx);border:1px solid var(--line)}button:disabled{background:#c8c8c8;cursor:not-allowed}
+input,select,textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font:inherit}
+input[type=number]{width:80px}label{display:block;font-weight:600;margin:12px 0 4px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);overflow-wrap:anywhere;vertical-align:middle}th{color:var(--mu);font-size:12px;text-transform:uppercase}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.msg{padding:10px 14px;border-radius:8px;margin-bottom:12px;background:#ecfdf3;color:var(--ok)}.msg.error{background:#fef3f2;color:var(--bad)}.msg.info{background:#eff8ff;color:#175cd3}
+.tag{font-size:12px;padding:1px 8px;border-radius:99px;background:#f0fdfa;color:#0f766e}.tag.cancelled{background:#fef3f2;color:var(--bad)}.tag.shipped{background:#eff8ff;color:#175cd3}
+.err{color:var(--bad);font-size:13px}
+</style></head><body>
+<header><div class="in"><b><a href="{% url 'product_list' %}" style="color:inherit">ShopKit</a></b><span class="sp"></span>
+{% if user.is_staff %}<a href="{% url 'staff_orders' %}">Orders</a><a href="/admin/">Admin</a>{% endif %}
+<a href="{% url 'cart_detail' %}">Cart ({{ cart_count }})</a></div></header>
+<main>{% for m in messages %}<div class="msg {{ m.tags }}">{{ m }}</div>{% endfor %}
+{% block content %}{% endblock %}</main></body></html>

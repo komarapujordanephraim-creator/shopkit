@@ -1,0 +1,12 @@
+{% extends "shop/base.html" %}
+{% block content %}
+<h1>Your cart</h1>
+{% if lines %}<div class="card"><table><tr><th>Product</th><th>Price</th><th>Quantity</th><th>Total</th></tr>
+{% for l in lines %}<tr><td><a href="{{ l.product.get_absolute_url }}">{{ l.product.name }}</a></td><td>${{ l.product.price }}</td>
+<td><form method="post" action="{% url 'cart_update' l.product.pk %}" class="row">{% csrf_token %}<input type="number" name="quantity" value="{{ l.quantity }}" min="0" max="{{ l.product.stock }}" aria-label="Quantity"><button class="g">Update</button></form></td>
+<td>${{ l.line_total }}</td></tr>{% endfor %}
+<tr><td colspan="3"><b>Total</b></td><td><b>${{ total }}</b></td></tr></table>
+<p class="help">Set quantity to 0 to remove an item.</p>
+<p><a class="btn" href="{% url 'checkout' %}">Checkout</a></p></div>
+{% else %}<p class="help">Your cart is empty. <a href="{% url 'product_list' %}">Browse products</a>.</p>{% endif %}
+{% endblock %}

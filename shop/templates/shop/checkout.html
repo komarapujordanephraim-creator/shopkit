@@ -1,0 +1,10 @@
+{% extends "shop/base.html" %}
+{% block content %}
+<h1>Checkout</h1>
+<div class="card"><table>{% for l in lines %}<tr><td>{{ l.product.name }} × {{ l.quantity }}</td><td>${{ l.line_total }}</td></tr>{% endfor %}
+<tr><td><b>Total</b></td><td><b>${{ total }}</b></td></tr></table></div>
+<div class="card" style="max-width:520px"><form method="post" novalidate>{% csrf_token %}
+{% for f in form %}<label for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}{% for e in f.errors %}<div class="err">{{ e }}</div>{% endfor %}{% endfor %}
+<p class="help">Demo store: no payment is taken. Orders start as Pending (for example pay on delivery).</p>
+<p><button>Place order</button></p></form></div>
+{% endblock %}

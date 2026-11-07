@@ -1,0 +1,9 @@
+{% extends "shop/base.html" %}
+{% block content %}
+<h1>Order {{ order.pk }} <span class="tag {{ order.status }}">{{ order.get_status_display }}</span></h1>
+<div class="card"><p>Thank you, {{ order.name }}. Keep this page's link to check your order status.</p>
+<table><tr><th>Item</th><th>Price</th><th>Qty</th><th>Total</th></tr>
+{% for i in order.items.all %}<tr><td>{{ i.name }}</td><td>${{ i.unit_price }}</td><td>{{ i.quantity }}</td><td>${{ i.line_total }}</td></tr>{% endfor %}
+<tr><td colspan="3"><b>Total</b></td><td><b>${{ order.total }}</b></td></tr></table>
+<p class="help">Ships to: {{ order.address|linebreaksbr }}</p></div>
+{% endblock %}

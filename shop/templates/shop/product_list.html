@@ -1,0 +1,11 @@
+{% extends "shop/base.html" %}
+{% block content %}
+<form class="row" method="get" style="margin-bottom:18px"><input type="search" name="q" value="{{ q }}" placeholder="Search products" style="max-width:320px"><button class="g">Search</button></form>
+<div class="grid">
+{% for p in products %}<div class="card"><div class="thumb">{{ p.name|slice:":1" }}</div>
+<a href="{{ p.get_absolute_url }}"><b>{{ p.name }}</b></a><div class="price">${{ p.price }}</div>
+{% if p.stock %}<form method="post" action="{% url 'cart_add' p.pk %}" style="margin-top:8px">{% csrf_token %}<button>Add to cart</button></form>
+{% else %}<p class="help">Out of stock</p>{% endif %}</div>
+{% empty %}<p class="help">No products found.</p>{% endfor %}
+</div>
+{% endblock %}

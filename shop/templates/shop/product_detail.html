@@ -1,0 +1,9 @@
+{% extends "shop/base.html" %}
+{% block title %}{{ product.name }} · ShopKit{% endblock %}
+{% block content %}
+<div class="card" style="max-width:640px"><div class="thumb" style="height:180px">{{ product.name|slice:":1" }}</div>
+<h1>{{ product.name }}</h1><p class="price">${{ product.price }}</p><p>{{ product.description|linebreaksbr }}</p>
+{% if product.stock %}<p class="help">{{ product.stock }} in stock</p>
+<form method="post" action="{% url 'cart_add' product.pk %}" class="row">{% csrf_token %}<input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}"><button>Add to cart</button></form>
+{% else %}<p class="help">Out of stock</p>{% endif %}</div>
+{% endblock %}

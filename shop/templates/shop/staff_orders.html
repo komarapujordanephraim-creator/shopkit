@@ -1,0 +1,11 @@
+{% extends "shop/base.html" %}
+{% block content %}
+<h1>Orders</h1>
+<p class="row"><a href="?">All</a>{% for v,l in statuses %}<a href="?status={{ v }}" {% if current == v %}style="font-weight:700"{% endif %}>{{ l }}</a>{% endfor %}</p>
+<div class="card"><table><tr><th>#</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Action</th></tr>
+{% for o in orders %}<tr><td><a href="{{ o.get_absolute_url }}">{{ o.pk }}</a></td><td>{{ o.name }}<br><span class="help">{{ o.email }}</span></td>
+<td>{% for i in o.items.all %}{{ i.name }} × {{ i.quantity }}<br>{% endfor %}</td><td>${{ o.total }}</td><td><span class="tag {{ o.status }}">{{ o.get_status_display }}</span></td>
+<td>{% if o.status == "pending" or o.status == "paid" %}<form method="post" action="{% url 'staff_set_status' o.pk %}" class="row">{% csrf_token %}
+<select name="status" style="width:auto">{% if o.status == "pending" %}<option value="paid">Mark paid</option>{% else %}<option value="shipped">Mark shipped</option>{% endif %}<option value="cancelled">Cancel (restock)</option></select><button class="g">Apply</button></form>{% endif %}</td></tr>
+{% empty %}<tr><td colspan="6" class="help">No orders.</td></tr>{% endfor %}</table></div>
+{% endblock %}
